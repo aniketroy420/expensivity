@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:expensivity_u/widgets/expense_list_widget/expense_item.dart';
 import 'package:expensivity_u/models/expense.dart';
@@ -17,27 +18,19 @@ class ExpensesList extends StatelessWidget {
     return ListView.builder(
       itemCount: expenses.length,
       itemBuilder: (ctx, index) => Dismissible(
+        key: ValueKey(expenses[index]),
         background: Container(
-          //color: Theme.of(context).colorScheme.error.withOpacity(0.1),
+          color: Theme.of(context).colorScheme.error.withOpacity(0.75),
           margin: EdgeInsets.symmetric(
-              horizontal: Theme.of(context).cardTheme.margin!.horizontal),
-          child: const Align(
-            alignment: Alignment.topRight,
-            child: Padding(
-              padding: EdgeInsets.fromLTRB(0, 24, 8, 24),
-              child: Icon(
-                Icons.delete,
-                size: 40,
-                color: Color.fromARGB(255, 202, 82, 82),
-              ),
-            ),
+            horizontal: Theme.of(context).cardTheme.margin!.horizontal,
           ),
         ),
-        key: ValueKey(expenses[index]),
         onDismissed: (direction) {
           onRemoveExpense(expenses[index]);
         },
-        child: ExpenseItem(expenses[index]),
+        child: ExpenseItem(
+          expenses[index],
+        ),
       ),
     );
   }

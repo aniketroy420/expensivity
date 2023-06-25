@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "510883854089",
+    "project_id": "expensivity-9664b",
+    "storage_bucket": "expensivity-9664b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:510883854089:android:505d3244f77e53426445d8",
+        "android_client_info": {
+          "package_name": "com.example.expensivity_u"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "510883854089-n7jdogvac0a524saldnhi9cq2k592i6k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAg3hvomFyWG7TMOnQN00FUoYGp7mXHkHE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "510883854089-n7jdogvac0a524saldnhi9cq2k592i6k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

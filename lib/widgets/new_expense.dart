@@ -1,7 +1,11 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 
 import 'package:expensivity_u/models/expense.dart';
-//import 'package:flutter/rendering.dart';
+import 'package:expensivity_u/widgets/expenses.dart';
+
+import 'package:http/http.dart' as http;
 
 class NewExpense extends StatefulWidget {
   const NewExpense({super.key, required this.onAddExpense});
@@ -18,6 +22,7 @@ class _NewExpenseState extends State<NewExpense> {
   DateTime? _selectedDate;
   Category _selectedCategory = Category.leisure;
 
+
   void _presentDatePicker() async {
     final now = DateTime.now();
     final firstDate = DateTime(now.year - 1, now.month, now.day);
@@ -32,7 +37,7 @@ class _NewExpenseState extends State<NewExpense> {
     });
   }
 
-  void _submitExpenseDate() {
+  void _submitExpenseData() async {
     final enteredAmount =
         double.tryParse(_amountController.text); //tryParse('hello') => null
     final amountIsInvalid = enteredAmount == null || enteredAmount <= 0;
@@ -58,14 +63,39 @@ class _NewExpenseState extends State<NewExpense> {
       );
       return;
     }
-    widget.onAddExpense(
-      Expense(
-          title: _titleController.text,
-          amount: enteredAmount,
-          date: _selectedDate!,
-          category: _selectedCategory),
+    final url = Uri.https(
+        'expensivity-9664b-default-rtdb.firebaseio.com', 'expense-list.json');
+    await http.post(
+      url,
+      headers: {
+        'Content-type': 'application/json',
+      },
+      body: json.encode(
+        {
+          'title': _titleController.text,
+          'amount': enteredAmount,//.toString(),
+          'date': _selectedDate.toString(),//.substring(0, 10),
+          'category': _selectedCategory.name,
+        },
+      ),
     );
-    Navigator.pop(context);
+
+
+
+
+
+
+
+
+
+
+    if(!context.mounted){
+      return;
+    }
+
+   Navigator.of(context).push(MaterialPageRoute(builder: (context) => const Expenses()));
+    // Navigator.of(context).pop(
+    // );
   }
 
   @override
@@ -191,7 +221,7 @@ class _NewExpenseState extends State<NewExpense> {
                       ),
                       ElevatedButton(
                         onPressed: () {
-                          _submitExpenseDate();
+                          _submitExpenseData();
                         },
                         child: const Text('Save Expense'),
                       ),
@@ -210,7 +240,7 @@ class _NewExpenseState extends State<NewExpense> {
                       ),
                       ElevatedButton(
                         onPressed: () {
-                          _submitExpenseDate();
+                          _submitExpenseData();
                         },
                         child: const Text('Save Expense'),
                       ),
@@ -226,23 +256,23 @@ class _NewExpenseState extends State<NewExpense> {
 
   DropdownButton<Category> buildDropdownButton() {
     return DropdownButton(
-                      value: _selectedCategory,
-                      items: Category.values
-                          .map(
-                            (category) => DropdownMenuItem(
-                              value: category,
-                              child: Text(category.name.toUpperCase()),
-                            ),
-                          )
-                          .toList(),
-                      onChanged: (value) {
-                        if (value == null) {
-                          return;
-                        }
-                        setState(() {
-                          _selectedCategory = value;
-                        });
-                      },
-                    );
+      value: _selectedCategory,
+      items: Category.values
+          .map(
+            (category) => DropdownMenuItem(
+              value: category,
+              child: Text(category.name.toUpperCase()),
+            ),
+          )
+          .toList(),
+      onChanged: (value) {
+        if (value == null) {
+          return;
+        }
+        setState(() {
+          _selectedCategory = value;
+        });
+      },
+    );
   }
 }
