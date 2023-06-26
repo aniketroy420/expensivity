@@ -22,7 +22,6 @@ class _NewExpenseState extends State<NewExpense> {
   DateTime? _selectedDate;
   Category _selectedCategory = Category.leisure;
 
-
   void _presentDatePicker() async {
     final now = DateTime.now();
     final firstDate = DateTime(now.year - 1, now.month, now.day);
@@ -73,27 +72,19 @@ class _NewExpenseState extends State<NewExpense> {
       body: json.encode(
         {
           'title': _titleController.text,
-          'amount': enteredAmount,//.toString(),
-          'date': _selectedDate.toString(),//.substring(0, 10),
+          'amount': enteredAmount, //.toString(),
+          'date': _selectedDate.toString(), //.substring(0, 10),
           'category': _selectedCategory.name,
         },
       ),
     );
 
-
-
-
-
-
-
-
-
-
-    if(!context.mounted){
+    if (!context.mounted) {
       return;
     }
 
-   Navigator.of(context).push(MaterialPageRoute(builder: (context) => const Expenses()));
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (context) => const Expenses()));
     // Navigator.of(context).pop(
     // );
   }
