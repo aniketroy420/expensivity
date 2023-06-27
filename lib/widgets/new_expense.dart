@@ -129,7 +129,7 @@ class _NewExpenseState extends State<NewExpense> {
                           controller: _amountController,
                           keyboardType: TextInputType.number,
                           decoration: const InputDecoration(
-                              label: Text('Amount'), prefix: Text('\$ ')),
+                              label: Text('Amount'), prefix: Text('\u{20B9}')),
                         ),
                       ),
                     ],
@@ -176,7 +176,7 @@ class _NewExpenseState extends State<NewExpense> {
                           controller: _amountController,
                           keyboardType: TextInputType.number,
                           decoration: const InputDecoration(
-                              label: Text('Amount'), prefix: Text('\$ ')),
+                              label: Text('Amount'), prefix: Text('\u{20B9}')),
                         ),
                       ),
                       const SizedBox(width: 16),
